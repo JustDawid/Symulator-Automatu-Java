@@ -177,16 +177,13 @@ class Automat {
 
         int resztaDoWydania = sumaWrzucona - cena;
 
-        // 1. Symulacja kasy automatu (obecny stan + wrzucone monety)
         Map<Nominal, Integer> tymczasowaKasa = new EnumMap<>(kasa);
         for (Map.Entry<Nominal, Integer> entry : wrzuconeMonety.entrySet()) {
             tymczasowaKasa.put(entry.getKey(), tymczasowaKasa.getOrDefault(entry.getKey(), 0) + entry.getValue());
         }
 
-        // 2. Przygotowujemy zbiór monet, które zostaną wydane
         Map<Nominal, Integer> wydanaReszta = new EnumMap<>(Nominal.class);
 
-        // 3. Algorytm zachłanny wydawania reszty
         for (Nominal nominal : Nominal.values()) {
             int wartosc = nominal.getWartosc();
             int dostepnychWKasie = tymczasowaKasa.getOrDefault(nominal, 0);
@@ -368,7 +365,6 @@ public class Main {
         Gracz gracz = new Gracz(3000);
         Automat automat = new Automat();
 
-        // Automat zatowarowany tylko napojami (kasa z pieniędzmi jest pusta)
         automat.zatowarujNowymi(1, Woda.class, 3);
         automat.zatowarujNowymi(2, Fanta.class, 3);
         automat.zatowarujNowymi(3, Cola.class, 3);
